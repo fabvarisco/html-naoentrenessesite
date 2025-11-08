@@ -154,11 +154,18 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="mainText">Curiosa kkkkjj</h1>
+        <h1 id="mainText">Voce e o Curioso numero kkkkjj</h1>
         <p class="subtitle">Falei pra não entrar kkkk</p>
     </div>
 
     <script>
+        let visitorCount = parseInt(localStorage.getItem('curiosoCount') || '0');
+        visitorCount++;
+        localStorage.setItem('curiosoCount', visitorCount.toString());
+        
+        const mainText = document.getElementById('mainText');
+        mainText.textContent = `Você é o Curioso número ${visitorCount}`;
+
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -183,34 +190,17 @@
             document.body.appendChild(kururin);
         }
 
-        const kururinCount = Math.floor(Math.random() * 8) + 8;
-        for (let i = 0; i < kururinCount; i++) {
+        for (let i = 0; i < visitorCount; i++) {
             createKururin();
         }
 
         setInterval(() => {
             createKururin();
             const allKururins = document.querySelectorAll('.kururin');
-            if (allKururins.length > 20) {
+            if (allKururins.length > visitorCount + 20) {
                 allKururins[0].remove();
             }
         }, 5000);
-
-        document.body.addEventListener('click', (e) => {
-            const kururin = document.createElement('img');
-            kururin.className = 'kururin';
-            kururin.src = './kururin-kuru-kuru.gif';
-            kururin.style.left = (e.clientX / window.innerWidth * 100) + '%';
-            kururin.style.top = (e.clientY / window.innerHeight * 100) + '%';
-            kururin.style.animationDelay = '0s';
-            kururin.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            document.body.appendChild(kururin);
-
-            const allKururins = document.querySelectorAll('.kururin');
-            if (allKururins.length > 50) {
-                allKururins[0].remove();
-            }
-        });
 
     </script>
 </body>
